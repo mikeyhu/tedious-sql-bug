@@ -1,0 +1,17 @@
+version: '3.7'
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=notARealPassword1
+    expose:
+      - '1433'
+  app:
+    build: .
+    links:
+      - mssql
+    environment:
+      - SQL_SERVER=mssql
+      - SQL_USERNAME=sa
+      - SQL_PASSWORD=notARealPassword1
